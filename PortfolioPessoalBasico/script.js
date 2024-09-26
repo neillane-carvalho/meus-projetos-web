@@ -23,3 +23,46 @@ document.getElementById('formContato').addEventListener('submit', function(event
     
     document.getElementById('respostaContato').textContent = resposta;
 });
+
+// Scrollspy para destacar o link de navegação ativo
+window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav ul li a');
+    
+    let index = sections.length;
+
+    while(--index && window.scrollY + 50 < sections[index].offsetTop) {}
+
+    navLinks.forEach((link) => link.classList.remove('active'));
+    navLinks[index].classList.add('active');
+});
+
+// Mostrar/esconder o botão "Voltar ao topo"
+window.addEventListener('scroll', function() {
+    const topoButton = document.getElementById('topo');
+    if (window.scrollY > 300) {
+        topoButton.style.display = 'block';
+    } else {
+        topoButton.style.display = 'none';
+    }
+});
+
+// Função para rolar para o topo
+document.getElementById('topo').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Animação de "fade-in" ao rolar
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        } else {
+            entry.target.classList.remove('visible');
+        }
+    });
+});
+
+fadeElements.forEach((el) => observer.observe(el));
